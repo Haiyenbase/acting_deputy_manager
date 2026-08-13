@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chiến lược & Kế hoạch — Data Service 2026–2029</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0C3C6E; --navy-d:#071E3D; --blue:#1565C0; --blue-l:#2196F3;
+  --sky:#E3F2FD; --sky2:#EEF6FE;
+  --orange:#E65100; --orange-l:#FF6D00; --orange-bg:#FFF3E0;
+  --green:#1B5E20; --green-l:#2E7D32; --green-bg:#E8F5E9;
+  --red:#B71C1C; --red-bg:#FFEBEE;
+  --amber:#F57F17; --amber-bg:#FFFDE7;
+  --purple:#4A148C; --purple-bg:#F3E5F5;
+  --teal:#004D40; --teal-bg:#E0F2F1;
+  --ink:#1A1F2E; --muted:#546E7A; --line:#CFD8DC;
+  --paper:#F8FAFC; --card:#ffffff;
+
+  /* team colors */
+  --se:#1565C0;      --se-bg:#E3F2FD;
+  --impl:#004D40;    --impl-bg:#E0F2F1;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Be Vietnam Pro',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);
+  line-height:1.65;font-size:15px;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(145deg,var(--navy-d) 0%,#0d3461 55%,var(--blue) 100%);
+  color:#fff;padding:60px 32px 52px;position:relative;overflow:hidden;
+}
+.hero::after{content:'';position:absolute;right:-120px;bottom:-120px;width:460px;height:460px;border:1px solid rgba(255,255,255,.07);border-radius:50%;}
+.hero::before{content:'';position:absolute;right:60px;bottom:-40px;width:260px;height:260px;border:1px solid rgba(255,255,255,.05);border-radius:50%;}
+.hero-wrap{max-width:1080px;margin:0 auto;position:relative;z-index:1;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#90CAF9;border:1px solid rgba(144,202,249,.35);padding:5px 14px;border-radius:100px;margin-bottom:22px;}
+.hero h1{font-size:clamp(26px,4vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1.1;max-width:700px;}
+.hero h1 span{color:#FFB74D;}
+.hero-sub{margin-top:12px;color:#90CAF9;font-size:14px;max-width:600px;}
+
+/* team pill badges in hero */
+.hero-teams{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
+.team-pill{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;padding:14px 20px;
+}
+.team-pill .tp-icon{font-size:22px;}
+.team-pill .tp-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:2px;}
+.team-pill .tp-name{font-size:15px;font-weight:800;}
+.team-pill .tp-desc{font-size:12px;color:rgba(255,255,255,.6);margin-top:1px;}
+
+/* KPI bar */
+.hero-kpis{display:flex;gap:16px;margin-top:24px;flex-wrap:wrap;}
+.hkpi{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:14px 20px;min-width:140px;}
+.hkpi .lbl{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#90CAF9;font-weight:600;}
+.hkpi .val{font-size:24px;font-weight:800;margin-top:4px;}
+.hkpi .sub{font-size:11.5px;color:#90CAF9;margin-top:1px;}
+
+/* ── TAB BAR ── */
+.tabbar-wrap{
+  position:sticky;top:0;z-index:100;
+  background:#fff;border-bottom:2px solid var(--line);
+  overflow-x:auto;
+}
+.tabbar{
+  max-width:1080px;margin:0 auto;padding:0 32px;
+  display:flex;gap:0;
+}
+.tab-btn{
+  display:flex;align-items:center;gap:7px;
+  font-family:'Be Vietnam Pro',sans-serif;font-size:13px;font-weight:700;
+  color:var(--muted);background:none;border:none;cursor:pointer;
+  padding:14px 18px;border-bottom:3px solid transparent;margin-bottom:-2px;
+  white-space:nowrap;letter-spacing:-.01em;transition:.15s;
+}
+.tab-btn:hover{color:var(--ink);}
+.tab-btn.active{color:var(--navy);border-bottom-color:var(--orange-l);}
+.tab-btn .tcode{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;
+  background:var(--sky2);color:var(--blue);padding:2px 7px;border-radius:100px;
+}
+.tab-btn.active .tcode{background:var(--orange-bg);color:var(--orange);}
+
+/* ── PANELS ── */
+.panel-wrap{max-width:1080px;margin:0 auto;padding:0 32px 80px;}
+.tab-panel{display:none;padding-top:48px;}
+.tab-panel.active{display:block;}
+
+/* ── SECTION LABELS ── */
+.sec-label{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  padding:4px 12px;border-radius:100px;margin-bottom:14px;
+}
+.lbl-blue{color:var(--blue);background:var(--sky);}
+.lbl-orange{color:var(--orange);background:var(--orange-bg);}
+.lbl-green{color:var(--green-l);background:var(--green-bg);}
+.lbl-purple{color:var(--purple);background:var(--purple-bg);}
+.lbl-teal{color:var(--teal);background:var(--teal-bg);}
+.lbl-red{color:var(--red);background:var(--red-bg);}
+
+h2.ptitle{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.02em;margin-bottom:6px;}
+p.pdesc{color:var(--muted);font-size:14.5px;max-width:680px;margin-bottom:32px;}
+h3.sh{font-size:17px;font-weight:700;margin:36px 0 14px;display:flex;align-items:center;gap:10px;}
+h3.sh .stag{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border-radius:100px;}
+.stag-new{background:var(--orange-bg);color:var(--orange);}
+.stag-key{background:var(--navy-d);color:#fff;}
+hr.div{border:none;border-top:1px solid var(--line);margin:40px 0;}
+
+/* ── TEAM SPLIT ── */
+.team-split{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:700px){.team-split{grid-template-columns:1fr;}}
+.team-block{border-radius:14px;overflow:hidden;border:2px solid var(--line);}
+.team-block.se{border-color:#90CAF9;}
+.team-block.impl{border-color:#80CBC4;}
+.team-head{padding:16px 20px;font-weight:800;font-size:15px;display:flex;align-items:center;gap:10px;}
+.team-head.se{background:var(--se-bg);color:var(--se);}
+.team-head.impl{background:var(--impl-bg);color:var(--impl);}
+.team-head .th-sub{font-size:11.5px;font-weight:500;opacity:.75;margin-left:4px;}
+.team-body{padding:16px 20px;background:var(--card);display:flex;flex-direction:column;gap:10px;}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+@media(max-width:768px){.g2,.g3,.g4{grid-template-columns:1fr;}}
+
+/* ── CARD ── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;transition:.18s;}
+.card:hover{border-color:var(--blue-l);box-shadow:0 8px 26px -16px rgba(21,101,192,.25);}
+.card-icon{font-size:26px;margin-bottom:10px;}
+.card-title{font-size:14.5px;font-weight:700;margin-bottom:6px;}
+.card-body{font-size:13px;color:var(--muted);}
+.suggest{font-style:italic;color:var(--muted);font-size:12.5px;border-left:3px solid var(--orange-l);padding-left:10px;margin-top:10px;}
+
+/* ── GOAL CARDS ── */
+.goal-card{border-radius:16px;padding:24px 26px;position:relative;overflow:hidden;color:#fff;}
+.goal-card.blue{background:linear-gradient(135deg,var(--navy-d),var(--blue));}
+.goal-card.orange{background:linear-gradient(135deg,#BF360C,var(--orange-l));}
+.goal-card .gc-year{font-family:'JetBrains Mono',monospace;font-size:12px;opacity:.7;margin-bottom:8px;}
+.goal-card .gc-amt{font-size:clamp(30px,5vw,48px);font-weight:800;letter-spacing:-.03em;line-height:1;}
+.goal-card .gc-lbl{font-size:13.5px;opacity:.8;margin-top:8px;}
+.goal-card ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:7px;}
+.goal-card ul li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:9px 13px;font-size:13px;}
+.goal-card ul li::before{content:'→ ';opacity:.6;}
+
+/* ── ROADMAP ── */
+.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0;}
+@media(max-width:768px){.roadmap{grid-template-columns:1fr;}}
+.rm-col{border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.rm-head{padding:14px 18px;font-weight:800;font-size:14px;}
+.rm-head .rmp{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;opacity:.7;}
+.rm-head.q3{background:var(--sky);color:var(--navy);}
+.rm-head.q4{background:var(--orange-bg);color:var(--orange);}
+.rm-head.q1{background:var(--purple-bg);color:var(--purple);}
+.rm-items{padding:14px 18px;display:flex;flex-direction:column;gap:10px;}
+.rm-item{font-size:13px;display:flex;gap:8px;align-items:flex-start;}
+.rm-item::before{content:'·';font-weight:900;font-size:18px;line-height:1.3;flex:none;}
+.q3-col .rm-item::before{color:var(--blue);}
+.q4-col .rm-item::before{color:var(--orange);}
+.q1-col .rm-item::before{color:var(--purple);}
+.rm-sub{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-bottom:6px;display:inline-flex;}
+.rm-sub.se{background:var(--se-bg);color:var(--se);}
+.rm-sub.impl{background:var(--impl-bg);color:var(--impl);}
+
+/* ── PROBLEM / SOLUTION ── */
+.ps-card{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:16px;background:var(--card);}
+.ps-head{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:14px;padding:15px 20px;}
+.ps-num{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:15px;flex:none;}
+.ps-num.red{background:var(--red-bg);color:var(--red);}
+.ps-num.amber{background:var(--amber-bg);color:var(--amber);}
+.ps-head h4{font-size:14.5px;font-weight:700;}
+.ps-badge{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border-radius:100px;flex:none;}
+.ps-badge.red{background:var(--red-bg);color:var(--red);}
+.ps-badge.amber{background:var(--amber-bg);color:var(--amber);}
+.ps-body{padding:0 20px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:600px){.ps-body{grid-template-columns:1fr;}}
+.ps-block{border-radius:10px;padding:13px 15px;}
+.ps-block.prob{background:var(--red-bg);}
+.ps-block.sol{background:var(--green-bg);}
+.blbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;}
+.ps-block.prob .blbl{color:var(--red);}
+.ps-block.sol .blbl{color:var(--green-l);}
+.ps-block ul{list-style:none;display:flex;flex-direction:column;gap:5px;font-size:13px;}
+.ps-block.prob ul li::before{content:'⚠ ';color:var(--red);}
+.ps-block.sol ul li::before{content:'✓ ';color:var(--green-l);font-weight:700;}
+
+/* ── TABLE ── */
+table.t{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:24px;}
+table.t th{background:var(--navy-d);color:#fff;padding:10px 14px;text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;}
+table.t td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
+table.t tr:last-child td{border-bottom:none;}
+table.t tr:hover td{background:var(--sky2);}
+.pb{font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:100px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;}
+.pb.hi{background:var(--red-bg);color:var(--red);}
+.pb.mid{background:var(--amber-bg);color:var(--amber);}
+.pb.lo{background:var(--green-bg);color:var(--green-l);}
+.pb.se{background:var(--se-bg);color:var(--se);}
+.pb.impl{background:var(--impl-bg);color:var(--impl);}
+
+/* ── HIGHLIGHT BOX ── */
+.hl{border-radius:14px;padding:22px 26px;margin:22px 0;display:flex;gap:18px;align-items:flex-start;}
+.hl.blue{background:var(--sky);border:1px solid #90CAF9;}
+.hl.orange{background:var(--orange-bg);border:1px solid #FFCC80;}
+.hl.green{background:var(--green-bg);border:1px solid #A5D6A7;}
+.hl.teal{background:var(--teal-bg);border:1px solid #80CBC4;}
+.hl .hi{font-size:26px;flex:none;margin-top:2px;}
+.hl h4{font-size:14.5px;font-weight:700;margin-bottom:8px;}
+.hl p,.hl li{font-size:13.5px;}
+.hl ul{padding-left:18px;display:flex;flex-direction:column;gap:5px;margin-top:6px;}
+
+/* ── PERSON CARD ── */
+.person-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media(max-width:640px){.person-grid{grid-template-columns:1fr;}}
+.person-card{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--card);}
+.person-role{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;}
+.person-name{font-size:17px;font-weight:800;margin-bottom:8px;}
+.skill-list{display:flex;flex-direction:column;gap:7px;}
+.skill-row{display:flex;align-items:center;gap:8px;font-size:13px;}
+.sbg{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden;}
+.sbar{height:100%;border-radius:3px;}
+.sbar.h{background:var(--green-l);} .sbar.m{background:var(--amber);} .sbar.l{background:var(--red);}
+.spct{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);width:32px;text-align:right;}
+
+/* product cards */
+.prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media(max-width:640px){.prod-grid{grid-template-columns:1fr;}}
+.prod-card{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--card);}
+.prod-icon{font-size:28px;margin-bottom:8px;}
+.prod-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+.prod-desc{font-size:13px;color:var(--muted);margin-bottom:12px;}
+.prod-act{font-size:13px;display:flex;gap:8px;}
+.prod-act::before{content:'→';color:var(--blue);font-weight:700;flex:none;}
+
+/* chips */
+.chip{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:100px;border:1px solid var(--line);background:var(--paper);color:var(--muted);display:inline-block;}
+.chip.se{background:var(--se-bg);color:var(--se);border-color:#90CAF9;}
+.chip.impl{background:var(--impl-bg);color:var(--impl);border-color:#80CBC4;}
+
+footer{background:var(--navy-d);color:rgba(255,255,255,.5);text-align:center;padding:28px;font-size:12.5px;margin-top:40px;}
+footer b{color:rgba(255,255,255,.8);}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ HERO ════════════════ -->
+<div class="hero">
+  <div class="hero-wrap">
+    <div class="hero-tag">📋 Nội bộ · Data Service · 08/2026</div>
+    <h1>Chiến lược & Kế hoạch<br><span>Data Service 2026–2029</span></h1>
+    <p class="hero-sub">Tổng hợp mục tiêu · kế hoạch hành động · quy trình · nhân sự · sản phẩm & chất lượng<br>cho hai đội vận hành: <b style="color:#fff">SE (Doanh thu)</b> & <b style="color:#fff">Triển khai (PM · DE · DA)</b></p>
+
+    <div class="hero-teams">
+      <div class="team-pill">
+        <div class="tp-icon">💼</div>
+        <div>
+          <div class="tp-label">Đội 1</div>
+          <div class="tp-name">SE — Sales Engineer</div>
+          <div class="tp-desc">Khai thác & chốt doanh thu</div>
+        </div>
+      </div>
+      <div class="team-pill">
+        <div class="tp-icon">⚙️</div>
+        <div>
+          <div class="tp-label">Đội 2</div>
+          <div class="tp-name">Triển khai — PM · DE · DA</div>
+          <div class="tp-desc">Thực thi dự án & vận hành sản phẩm</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-kpis">
+      <div class="hkpi">
+        <div class="lbl">Target 2026</div>
+        <div class="val">8 tỷ</div>
+        <div class="sub">~44% hoàn thành (T7)</div>
+      </div>
+      <div class="hkpi">
+        <div class="lbl">Đề xuất 2027</div>
+        <div class="val">12 tỷ</div>
+        <div class="sub">+50% YoY</div>
+      </div>
+      <div class="hkpi">
+        <div class="lbl">Tầm nhìn 2029</div>
+        <div class="val">1B $</div>
+        <div class="sub">Dài hạn</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ TAB BAR ════════════════ -->
+<div class="tabbar-wrap">
+  <div class="tabbar">
+    <button class="tab-btn active" data-tab="a"><span class="tcode">A</span> Mục tiêu</button>
+    <button class="tab-btn" data-tab="b"><span class="tcode">B</span> Kế hoạch</button>
+    <button class="tab-btn" data-tab="c"><span class="tcode">C</span> Quy trình</button>
+    <button class="tab-btn" data-tab="d"><span class="tcode">D</span> Nhân sự</button>
+    <button class="tab-btn" data-tab="e"><span class="tcode">E</span> Sản phẩm</button>
+    <button class="tab-btn" data-tab="f"><span class="tcode">F</span> Chất lượng</button>
+    <button class="tab-btn" data-tab="g"><span class="tcode">G</span> Resource</button>
+    <button class="tab-btn" data-tab="h"><span class="tcode">✦</span> Kết luận</button>
+  </div>
+</div>
+
+<div class="panel-wrap">
+
+<!-- ══════════════════════════════════════
+     A · MỤC TIÊU
+══════════════════════════════════════ -->
+<div class="tab-panel active" id="panel-a">
+  <div class="sec-label lbl-blue">A · Mục tiêu chiến lược</div>
+  <h2 class="ptitle">Mục tiêu theo từng đội & toàn team</h2>
+  <p class="pdesc">Tách rõ mục tiêu của đội SE (doanh thu) và đội Triển khai (chất lượng, tốc độ, vận hành) — để đánh giá đúng đóng góp từng người.</p>
+
+  <!-- Dài hạn -->
+  <h3 class="sh">A.1 · Dài hạn (2027–2029)</h3>
+  <div style="display:flex;gap:20px;margin-bottom:24px;align-items:stretch;">
+
+    <!-- Card 2027 -->
+    <div style="flex:1;position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#BF360C 0%,#E65100 50%,#FF8F00 100%);padding:36px 32px;color:#fff;box-shadow:0 8px 32px rgba(230,81,0,.30);">
+      <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08);"></div>
+      <div style="position:absolute;bottom:-30px;right:20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.06);"></div>
+      <div style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;opacity:.7;margin-bottom:14px;font-family:'JetBrains Mono',monospace;">📈 Target 2027</div>
+      <div style="font-size:clamp(48px,6vw,72px);font-weight:900;line-height:1;letter-spacing:-.03em;">12 tỷ</div>
+      <div style="font-size:14px;opacity:.75;margin-top:10px;font-weight:500;">+50% YoY so với 2026</div>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.2);font-size:13px;opacity:.65;line-height:1.6;">Đòn bẩy từ đóng gói sản phẩm theo ngành · rút ngắn sales cycle · mở vertical mới</div>
+    </div>
+
+    <!-- Arrow -->
+    <div style="display:flex;align-items:center;flex-shrink:0;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div style="width:2px;height:24px;background:linear-gradient(to bottom,var(--orange),var(--blue));border-radius:2px;"></div>
+        <div style="font-size:20px;color:var(--muted);">→</div>
+        <div style="width:2px;height:24px;background:linear-gradient(to bottom,var(--orange),var(--blue));border-radius:2px;"></div>
+      </div>
+    </div>
+
+    <!-- Card 2029 -->
+    <div style="flex:1;position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#071E3D 0%,#0D47A1 55%,#1565C0 100%);padding:36px 32px;color:#fff;box-shadow:0 8px 32px rgba(13,71,161,.30);">
+      <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06);"></div>
+      <div style="position:absolute;bottom:-30px;right:20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.05);"></div>
+      <div style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;opacity:.7;margin-bottom:14px;font-family:'JetBrains Mono',monospace;">🎯 Tầm nhìn 2029</div>
+      <div style="font-size:clamp(48px,6vw,72px);font-weight:900;line-height:1;letter-spacing:-.03em;">1B <span style="font-size:.55em;font-weight:700;opacity:.85;">USD</span></div>
+      <div style="font-size:14px;opacity:.75;margin-top:10px;font-weight:500;">Doanh thu tích lũy · Toàn team Data Service</div>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.15);font-size:13px;opacity:.65;line-height:1.6;">Thương hiệu Data Service hàng đầu B2B Việt Nam · Nền tảng SaaS / IP sản phẩm riêng</div>
+    </div>
+
+  </div>
+
+  <hr class="div">
+
+  <!-- Ngắn hạn 2026 — 4 trọng tâm -->
+  <h3 class="sh">A.2 · 4 trọng tâm ngắn hạn 2026</h3>
+  <div class="g2">
+    <div class="card" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border-left:4px solid var(--blue);">
+      <div class="card-icon">💰</div>
+      <div class="card-title" style="color:var(--blue);">Hoàn thành 8 tỷ VND</div>
+      <div class="card-body">Phân bổ KPI theo SE · theo dõi pipeline hàng tuần · không đợi cuối quý</div>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-left:4px solid var(--green-l);">
+      <div class="card-icon">🔄</div>
+      <div class="card-title" style="color:var(--green-l);">Xây dựng khung quy trình</div>
+      <div class="card-body">Chuẩn hoá nội bộ · liên phòng ban · với khách hàng</div>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border-left:4px solid var(--orange);">
+      <div class="card-icon">✅</div>
+      <div class="card-title" style="color:var(--orange);">Kiểm soát chất lượng</div>
+      <div class="card-body">3 Quality Gate · QA checklist · KPI nghiệm thu ≥ 85%</div>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,#E0F2F1,#CCFBF1);border-left:4px solid var(--teal);">
+      <div class="card-icon">📦</div>
+      <div class="card-title" style="color:var(--teal);">Đóng gói theo ngành</div>
+      <div class="card-body">Cao su → Sản xuất → BĐS · demo kit · webinar</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     B · KẾ HOẠCH
+══════════════════════════════════════ -->
+<div class="tab-panel" id="panel-b">
+  <div class="sec-label lbl-orange">B · Kế hoạch hành động</div>
+  <h2 class="ptitle">Kế hoạch cụ thể & Deadline</h2>
+  <p class="pdesc">Roadmap H2/2026 và Q1/2027 — mỗi đầu việc gắn team phụ trách, deadline và nguồn lực.</p>
+
+  <h3 class="sh">B.1 · Roadmap H2/2026 — H1/2027 <span class="stag stag-key">Gantt chart · ★ = deadline</span></h3>
+  <div style="border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);">
+    <!-- Phase headers -->
+    <div style="display:flex;">
+      <div style="width:28%;flex-shrink:0;"></div>
+      <div style="flex:6;padding:7px 12px;background:linear-gradient(90deg,var(--orange-bg),#fffaf5);border-bottom:2px solid var(--orange-l);color:var(--orange);font-weight:800;text-align:center;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;">H2 · 2026 &nbsp;·&nbsp; Q3 T7–9 · Q4 T10–12</div>
+      <div style="flex:3;padding:7px 12px;background:linear-gradient(90deg,var(--purple-bg),#faf8ff);border-bottom:2px solid var(--purple);color:var(--purple);font-weight:800;text-align:center;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;">H1 · 2027 &nbsp;·&nbsp; Q1 T1–3</div>
+    </div>
+    <!-- Month labels -->
+    <div style="display:flex;border-bottom:1px solid var(--line);background:var(--paper);">
+      <div style="width:28%;flex-shrink:0;padding:5px 12px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;">Đầu việc</div>
+      <div style="flex:1;display:grid;grid-template-columns:repeat(9,1fr);">
+        <div style="text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);background:rgba(255,152,0,.06);border-right:1px dashed var(--line);">T7</div>
+        <div style="text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);background:rgba(255,152,0,.06);border-right:1px dashed var(--line);">T8</div>
+        <div style="text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);background:rgba(255,152,0,.06);border-right:1px dashed var(--line);">T9</div>
+        <div style="text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);background:rgba(230,81,0,.04);border-right:1px dashed var(--line);">T10</div>
+        <div style="text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);background:rgba(230,81,0,.04);border-right:1px dashed var(--line);">T11</div>
+        <div style="text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);background:rgba(230,81,0,.04);border-right:1px dashed var(--line);">T12</div>
+        <div style="text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);background:rgba(74,20,140,.03);border-right:1px dashed var(--line);">T1/27</div>
+        <div style="text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);background:rgba(74,20,140,.03);border-right:1px dashed var(--line);">T2/27</div>
+        <div style="text-align:center;padding:5px 0;font-size:10px;font-weight:700;color:var(--muted);background:rgba(74,20,140,.03);">T3/27</div>
+      </div>
+    </div>
+    <!-- SE separator -->
+    <div style="display:flex;align-items:center;gap:10px;padding:5px 12px;background:var(--se-bg);border-top:1px solid #90CAF9;border-bottom:1px solid #90CAF9;">
+      <span style="background:linear-gradient(135deg,var(--blue),#1976D2);color:#fff;font-size:10px;font-weight:800;padding:2px 10px;border-radius:4px;letter-spacing:.5px;">🔷 SE</span>
+      <div style="flex:1;height:1px;background:var(--line);"></div>
+    </div>
+    <!-- SE Row 1 -->
+    <div style="display:flex;align-items:center;border-bottom:1px solid var(--line);">
+      <div style="width:28%;flex-shrink:0;padding:9px 12px;font-size:12px;color:var(--ink);line-height:1.4;">Webinar Cao su &amp; KPI framework<br><span style="color:var(--muted);font-size:10px;">≥10 lead hot · ≥2 deal · Xây khung com</span></div>
+      <div style="flex:1;position:relative;height:36px;background:repeating-linear-gradient(90deg,rgba(203,213,225,.15) 0,rgba(203,213,225,.15) 1px,transparent 1px,transparent calc(100%/9));">
+        <div style="position:absolute;left:0%;width:33.33%;top:14%;height:72%;border-radius:6px;background:linear-gradient(90deg,var(--blue),#1976D2);display:flex;align-items:center;padding:0 8px;font-size:9.5px;font-weight:700;color:rgba(255,255,255,.95);overflow:hidden;box-shadow:0 2px 8px rgba(21,101,192,.25);">🎤 Webinar Cao su</div>
+        <div style="position:absolute;left:27.78%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;background:#F59E0B;border:2px solid #fff;border-radius:2px;rotate:45deg;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;" title="★ 30/09"></div>
+      </div>
+    </div>
+    <!-- SE Row 2 -->
+    <div style="display:flex;align-items:center;border-bottom:1px solid var(--line);">
+      <div style="width:28%;flex-shrink:0;padding:9px 12px;font-size:12px;color:var(--ink);line-height:1.4;">Chốt pipeline &amp; deals Q4<br><span style="color:var(--muted);font-size:10px;">Đóng gói ngành BĐS · Push closing</span></div>
+      <div style="flex:1;position:relative;height:36px;background:repeating-linear-gradient(90deg,rgba(203,213,225,.15) 0,rgba(203,213,225,.15) 1px,transparent 1px,transparent calc(100%/9));">
+        <div style="position:absolute;left:33.33%;width:33.33%;top:14%;height:72%;border-radius:6px;background:linear-gradient(90deg,var(--blue),#42A5F5);display:flex;align-items:center;padding:0 8px;font-size:9.5px;font-weight:700;color:rgba(255,255,255,.95);overflow:hidden;box-shadow:0 2px 8px rgba(21,101,192,.25);">📊 Pipeline Q4</div>
+        <div style="position:absolute;left:61.11%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;background:#F59E0B;border:2px solid #fff;border-radius:2px;rotate:45deg;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;" title="★ 20/12"></div>
+      </div>
+    </div>
+    <!-- SE Row 3 -->
+    <div style="display:flex;align-items:center;border-bottom:1px solid var(--line);">
+      <div style="width:28%;flex-shrink:0;padding:9px 12px;font-size:12px;color:var(--ink);line-height:1.4;">KPI 2027 · Webinar BĐS/SX<br><span style="color:var(--muted);font-size:10px;">Tuyển &amp; onboard SE mới</span></div>
+      <div style="flex:1;position:relative;height:36px;background:repeating-linear-gradient(90deg,rgba(203,213,225,.15) 0,rgba(203,213,225,.15) 1px,transparent 1px,transparent calc(100%/9));">
+        <div style="position:absolute;left:66.67%;width:33.33%;top:14%;height:72%;border-radius:6px;background:linear-gradient(90deg,#1565C0,#1E88E5);display:flex;align-items:center;padding:0 8px;font-size:9.5px;font-weight:700;color:rgba(255,255,255,.95);overflow:hidden;box-shadow:0 2px 8px rgba(21,101,192,.25);">🚀 Scale 2027</div>
+        <div style="position:absolute;left:72.22%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;background:#F59E0B;border:2px solid #fff;border-radius:2px;rotate:45deg;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;" title="★ 31/01"></div>
+        <div style="position:absolute;left:83.33%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;background:#F59E0B;border:2px solid #fff;border-radius:2px;rotate:45deg;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;" title="★ 28/02"></div>
+      </div>
+    </div>
+    <!-- SE Row 4: Com policy -->
+    <div style="display:flex;align-items:center;border-bottom:1px solid var(--line);">
+      <div style="width:28%;flex-shrink:0;padding:9px 12px;font-size:12px;color:var(--ink);line-height:1.4;">Chính sách com mới toàn team<br><span style="color:var(--muted);font-size:10px;">Đảm bảo benefit · minh bạch · gắn với target</span></div>
+      <div style="flex:1;position:relative;height:36px;background:repeating-linear-gradient(90deg,rgba(203,213,225,.15) 0,rgba(203,213,225,.15) 1px,transparent 1px,transparent calc(100%/9));">
+        <div style="position:absolute;left:33.33%;width:33.33%;top:14%;height:72%;border-radius:6px;background:linear-gradient(90deg,#1565C0,#7B1FA2);display:flex;align-items:center;padding:0 8px;font-size:9.5px;font-weight:700;color:rgba(255,255,255,.95);overflow:hidden;box-shadow:0 2px 8px rgba(100,0,150,.2);">💰 Com policy</div>
+        <div style="position:absolute;left:61.11%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;background:#F59E0B;border:2px solid #fff;border-radius:2px;rotate:45deg;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;" title="★ 31/12"></div>
+      </div>
+    </div>
+    <!-- SE Row 5: Career path SE -->
+    <div style="display:flex;align-items:center;border-bottom:1px solid var(--line);">
+      <div style="width:28%;flex-shrink:0;padding:9px 12px;font-size:12px;color:var(--ink);line-height:1.4;">Career path SE · lộ trình phát triển<br><span style="color:var(--muted);font-size:10px;">Junior → Mid → Senior · KPI từng level</span></div>
+      <div style="flex:1;position:relative;height:36px;background:repeating-linear-gradient(90deg,rgba(203,213,225,.15) 0,rgba(203,213,225,.15) 1px,transparent 1px,transparent calc(100%/9));">
+        <div style="position:absolute;left:55.56%;width:22.22%;top:14%;height:72%;border-radius:6px;background:linear-gradient(90deg,#0D47A1,#1565C0);display:flex;align-items:center;padding:0 8px;font-size:9.5px;font-weight:800;color:#fff;overflow:hidden;box-shadow:0 2px 10px rgba(13,71,161,.4);border:1px solid rgba(255,255,255,.25);">🗺️ Career path SE</div>
+        <div style="position:absolute;left:72.22%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;background:#EF4444;border:2px solid #fff;border-radius:2px;rotate:45deg;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;" title="★ 01/2027"></div>
+      </div>
+    </div>
+    <!-- TK separator -->
+    <div style="display:flex;align-items:center;gap:10px;padding:5px 12px;background:var(--impl-bg);border-top:1px solid #80CBC4;border-bottom:1px solid #80CBC4;">
+      <span style="background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;font-size:10px;font-weight:800;padding:2px 10px;border-radius:4px;letter-spacing:.5px;">🟩 Triển khai</span>
+      <div style="flex:1;height:1px;background:var(--line);"></div>
+    </div>
+    <!-- TK Row 1 -->
+    <div style="display:flex;align-items:center;border-bottom:1px solid var(--line);">
+      <div style="width:28%;flex-shrink:0;padding:9px 12px;font-size:12px;color:var(--ink);line-height:1.4;">Dashboard tiến độ dự án<br><span style="color:var(--muted);font-size:10px;">Workload DE↔DA real-time</span></div>
+      <div style="flex:1;position:relative;height:36px;background:repeating-linear-gradient(90deg,rgba(203,213,225,.15) 0,rgba(203,213,225,.15) 1px,transparent 1px,transparent calc(100%/9));">
+        <div style="position:absolute;left:0%;width:22.22%;top:14%;height:72%;border-radius:6px;background:linear-gradient(90deg,var(--teal),#26A69A);display:flex;align-items:center;padding:0 8px;font-size:9.5px;font-weight:700;color:rgba(255,255,255,.95);overflow:hidden;box-shadow:0 2px 8px rgba(0,77,64,.25);">📋 Dashboard</div>
+        <div style="position:absolute;left:5.56%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;background:#F59E0B;border:2px solid #fff;border-radius:2px;rotate:45deg;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;" title="★ 31/07"></div>
+        <div style="position:absolute;left:16.67%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;background:#F59E0B;border:2px solid #fff;border-radius:2px;rotate:45deg;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;" title="★ 31/08"></div>
+      </div>
+    </div>
+    <!-- TK Row 2 -->
+    <div style="display:flex;align-items:center;border-bottom:1px solid var(--line);">
+      <div style="width:28%;flex-shrink:0;padding:9px 12px;font-size:12px;color:var(--ink);line-height:1.4;">QA tài liệu + Onboard nội bộ<br><span style="color:var(--muted);font-size:10px;">5 case study · Retrospective cuối năm</span></div>
+      <div style="flex:1;position:relative;height:36px;background:repeating-linear-gradient(90deg,rgba(203,213,225,.15) 0,rgba(203,213,225,.15) 1px,transparent 1px,transparent calc(100%/9));">
+        <div style="position:absolute;left:33.33%;width:33.33%;top:14%;height:72%;border-radius:6px;background:linear-gradient(90deg,var(--teal),#00796B);display:flex;align-items:center;padding:0 8px;font-size:9.5px;font-weight:700;color:rgba(255,255,255,.95);overflow:hidden;box-shadow:0 2px 8px rgba(0,77,64,.25);">📝 QA docs · Onboard</div>
+        <div style="position:absolute;left:38.89%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;background:#F59E0B;border:2px solid #fff;border-radius:2px;rotate:45deg;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;" title="★ 31/10"></div>
+      </div>
+    </div>
+    <!-- TK Row 3 -->
+    <div style="display:flex;align-items:center;">
+      <div style="width:28%;flex-shrink:0;padding:9px 12px;font-size:12px;color:var(--ink);line-height:1.4;">Career path framework DA/DE/PM<br><span style="color:var(--muted);font-size:10px;">Tài liệu 4 nhóm sản phẩm DE</span></div>
+      <div style="flex:1;position:relative;height:36px;background:repeating-linear-gradient(90deg,rgba(203,213,225,.15) 0,rgba(203,213,225,.15) 1px,transparent 1px,transparent calc(100%/9));">
+        <div style="position:absolute;left:66.67%;width:33.33%;top:14%;height:72%;border-radius:6px;background:linear-gradient(90deg,var(--teal),var(--teal2));display:flex;align-items:center;padding:0 8px;font-size:9.5px;font-weight:700;color:rgba(255,255,255,.95);overflow:hidden;box-shadow:0 2px 8px rgba(0,77,64,.25);">🎯 Career path</div>
+        <div style="position:absolute;left:83.33%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;background:#F59E0B;border:2px solid #fff;border-radius:2px;rotate:45deg;box-shadow:0 1px 4px rgba(0,0,0,.2);z-index:3;" title="★ 28/02"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Milestone table -->
+  <div style="margin-top:16px;overflow-x:auto;">
+    <table class="t" style="font-size:12px;">
+      <thead><tr><th>Deadline</th><th>Đội</th><th>Đầu việc chính</th><th>Deadline</th><th>Đội</th><th>Đầu việc chính</th></tr></thead>
+      <tbody>
+        <tr><td>31/07/2026</td><td><span class="chip se">SE</span></td><td>Phân bổ KPI tháng · chốt cách đo hàng tuần</td><td>31/10/2026</td><td><span class="chip impl">TK</span></td><td>Hoàn thiện tài liệu QA Tích hợp + Website</td></tr>
+        <tr><td>31/08/2026</td><td><span class="chip impl">TK</span></td><td>Dashboard tiến độ dự án live</td><td>20/12/2026</td><td><span class="chip" style="background:#37474F;color:#fff;border-color:#546E7A;">Cả 2</span></td><td>Retrospective quy trình cuối năm</td></tr>
+        <tr><td>30/09/2026</td><td><span class="chip se">SE</span></td><td>Webinar Cao su · ≥10 lead hot · ≥2 deal</td><td>31/01/2027</td><td><span class="chip se">SE</span></td><td>Công bố KPI &amp; com 2027 — toàn team SE</td></tr>
+        <tr><td>30/11/2026</td><td><span class="chip impl">TK</span></td><td>Onboard nội bộ — 5 case study thực tế</td><td>28/02/2027</td><td><span class="chip impl">TK</span></td><td>Career path framework · Tài liệu 4 nhóm SP</td></tr>
+        <tr><td>31/12/2026</td><td><span class="chip se">SE</span></td><td>Chính sách com mới — công bố & áp dụng toàn team</td><td>31/01/2027</td><td><span class="chip se">SE</span></td><td>Career path SE · lộ trình Junior → Mid → Senior</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="div">
+  <h3 class="sh">B.2 · Chiến lược Revenue Mix — 12 tỷ 2027</h3>
+  <p style="font-size:13.5px;color:var(--muted);margin-bottom:16px;">Không chạy đều tất cả deal — tập trung theo 3 nhóm chiến lược với tỷ trọng rõ ràng.</p>
+  <div style="display:grid;grid-template-columns:15fr 75fr 10fr;gap:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);margin-bottom:20px;">
+    <div style="background:linear-gradient(135deg,var(--blue),#1976D2);color:#fff;padding:20px 18px;">
+      <div style="font-size:28px;font-weight:900;line-height:1;">15%</div>
+      <div style="font-size:11px;opacity:.75;margin-top:4px;">≈ 1.8 tỷ</div>
+      <div style="font-size:13px;font-weight:700;margin-top:10px;line-height:1.4;">Tích hợp đơn giản</div>
+      <div style="font-size:11.5px;opacity:.8;margin-top:6px;line-height:1.6;">Bán nhanh, scope rõ, ít tùy biến. Connector chuẩn (Salesforce, Odoo, Shopify). Closing 1–2 tháng. Giữ ấm pipeline & cashflow.</div>
+    </div>
+    <div style="background:linear-gradient(135deg,var(--teal),#00695C);color:#fff;padding:20px 18px;">
+      <div style="font-size:28px;font-weight:900;line-height:1;">75%</div>
+      <div style="font-size:11px;opacity:.75;margin-top:4px;">≈ 9.0 tỷ</div>
+      <div style="font-size:13px;font-weight:700;margin-top:10px;line-height:1.4;">Bán theo ngành + Tái cấu trúc</div>
+      <div style="font-size:11.5px;opacity:.8;margin-top:6px;line-height:1.6;">Deal tầm trung & lớn. Gói hóa theo ngành (Cao su, BĐS, Sản xuất) hoặc tái cấu trúc luồng dữ liệu doanh nghiệp. Cần hiểu sâu nghiệp vụ.</div>
+    </div>
+    <div style="background:linear-gradient(135deg,var(--orange),#F57C00);color:#fff;padding:20px 18px;">
+      <div style="font-size:28px;font-weight:900;line-height:1;">10%</div>
+      <div style="font-size:11px;opacity:.75;margin-top:4px;">≈ 1.2 tỷ</div>
+      <div style="font-size:13px;font-weight:700;margin-top:10px;line-height:1.4;">Thử nghiệm đi kèm PS</div>
+      <div style="font-size:11.5px;opacity:.8;margin-top:6px;line-height:1.6;">Bán kèm Professional Services — tư vấn, thiết kế giải pháp, đào tạo nội bộ. Pilot 2–3 deal để đo margin.</div>
+    </div>
+  </div>
+
+  <h3 class="sh">B.2b · Chân dung 2 đối tượng khách — nhóm deal tầm trung & lớn (75%)</h3>
+  <div class="g2">
+    <div class="card" style="border-top:4px solid var(--teal);">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:10px;">🏭 Khách hàng theo Ngành</div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Đặc điểm</div>
+      <div class="card-body" style="margin-bottom:12px;">Doanh nghiệp vừa trong ngành Cao su, BĐS, Sản xuất, F&B. Quy mô 50–500 nhân sự, đang dùng Excel hoặc ERP rời rạc. Pain point rõ: báo cáo thủ công, sai số liệu, chậm ra quyết định.</div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Cách tiếp cận</div>
+      <div class="card-body">Webinar ngành → demo gói chuẩn → SOW nhanh. Avg deal: 150–400M · Timeline: 2–3 tháng. Leverage: case study từ Cao su để cross-sell BĐS, Sản xuất.</div>
+    </div>
+    <div class="card" style="border-top:4px solid var(--navy);">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);margin-bottom:10px;">🏢 Tái cấu trúc Doanh nghiệp Enterprise (đã dùng Base)</div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Đặc điểm</div>
+      <div class="card-body" style="margin-bottom:12px;">Tập đoàn / doanh nghiệp lớn >500 nhân sự, nhiều công ty con. Dữ liệu phân mảnh ở nhiều hệ thống, phòng ban không liên thông. Nhu cầu: một nguồn dữ liệu thật sự, dashboard C-level.</div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Cách tiếp cận</div>
+      <div class="card-body">Vào từ một phòng ban → chứng minh giá trị → mở rộng toàn tập đoàn. Avg deal: 500M–1.5 tỷ · Timeline: 4–8 tháng. Leverage: ATI, TATCONS, PVN Cà Mau đang trong pipeline.</div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <h3 class="sh">B.3 · Sơ đồ tổ chức — External Team <span class="stag stag-new">Đến 12/2026</span></h3>
+  <!-- Org Chart -->
+  <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+    <!-- Root node -->
+    <div style="background:linear-gradient(135deg,var(--navy-d),var(--blue));color:#fff;border-radius:14px;padding:14px 28px;text-align:center;box-shadow:0 4px 18px rgba(12,60,110,.3);min-width:200px;">
+      <div style="font-size:11px;opacity:.65;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">External Data Team</div>
+      <div style="font-size:17px;font-weight:800;">Team Lead</div>
+      <div style="font-size:12px;opacity:.8;margin-top:3px;">60% Yến</div>
+    </div>
+    <!-- Connector line -->
+    <div style="width:2px;height:24px;background:var(--line);"></div>
+    <!-- Branch line -->
+    <div style="display:flex;gap:0;align-items:flex-start;width:100%;justify-content:center;">
+      <!-- Horizontal connector -->
+      <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+        <div style="height:2px;width:100%;background:var(--line);"></div>
+        <div style="width:2px;height:20px;background:var(--line);"></div>
+        <!-- SE box -->
+        <div style="border:2px solid #90CAF9;border-radius:12px;overflow:hidden;min-width:180px;background:var(--card);box-shadow:0 2px 12px rgba(21,101,192,.1);">
+          <div style="background:var(--se-bg);color:var(--se);padding:10px 16px;font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px;">💼 SE <span style="font-size:11px;font-weight:500;opacity:.7;">— Sales Engineer</span></div>
+          <div style="padding:12px 16px;font-size:12.5px;display:flex;flex-direction:column;gap:5px;">
+            <div>🔹 <b>Diệp</b> <span style="color:var(--muted);">100%</span></div>
+            <div>🔹 <b>Yến</b> <span style="color:var(--muted);">60%</span></div>
+            <div>🔹 <b>Bình</b> <span style="color:var(--muted);">30%</span></div>
+            <div>🔹 <b>Nghĩa</b> <span style="color:var(--muted);">20%</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+        <div style="height:2px;width:100%;background:var(--line);"></div>
+        <div style="width:2px;height:20px;background:var(--line);"></div>
+        <!-- PM box -->
+        <div style="border:2px solid #80CBC4;border-radius:12px;overflow:hidden;min-width:180px;background:var(--card);box-shadow:0 2px 12px rgba(0,77,64,.1);">
+          <div style="background:var(--impl-bg);color:var(--impl);padding:10px 16px;font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px;">📋 PM <span style="font-size:11px;font-weight:500;opacity:.7;">— Project Manager</span></div>
+          <div style="padding:12px 16px;font-size:12.5px;display:flex;flex-direction:column;gap:5px;">
+            <div>🔸 <b>Yến</b> <span style="color:var(--muted);">30%</span></div>
+            <div>🔸 <b>Anh Thắng</b> <span style="color:var(--muted);">50%</span></div>
+            <div>🔸 <b>Chính</b></div>
+            <div>🔸 <b>Chị Yến Hoàng</b> <span style="color:var(--muted);">30%</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+        <div style="height:2px;width:100%;background:var(--line);"></div>
+        <div style="width:2px;height:20px;background:var(--line);"></div>
+        <!-- DE box -->
+        <div style="border:2px solid #FFCC80;border-radius:12px;overflow:hidden;min-width:180px;background:var(--card);box-shadow:0 2px 12px rgba(230,81,0,.1);">
+          <div style="background:var(--orange-bg);color:var(--orange);padding:10px 16px;font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px;">⚙️ DE <span style="font-size:11px;font-weight:500;opacity:.7;">— Data Engineer</span></div>
+          <div style="padding:12px 16px;font-size:12.5px;display:flex;flex-direction:column;gap:5px;">
+            <div>🔸 <b>Chính Bùi</b></div>
+            <div style="font-size:11px;color:var(--muted);font-style:italic;border-left:3px solid #FFCC80;padding-left:8px;margin-top:4px;">Diện đối tác · cần đối soát<br>output &amp; output cụ thể</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+        <div style="height:2px;width:100%;background:var(--line);"></div>
+        <div style="width:2px;height:20px;background:var(--line);"></div>
+        <!-- DA box -->
+        <div style="border:2px solid #CE93D8;border-radius:12px;overflow:hidden;min-width:180px;background:var(--card);box-shadow:0 2px 12px rgba(74,20,140,.1);">
+          <div style="background:var(--purple-bg);color:var(--purple);padding:10px 16px;font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px;">📊 DA <span style="font-size:11px;font-weight:500;opacity:.7;">— Data Analyst</span></div>
+          <div style="padding:12px 16px;font-size:12.5px;display:flex;flex-direction:column;gap:5px;">
+            <div>🔹 <b>Thái</b></div>
+            <div>🔹 <b>Linh Dương</b></div>
+            <div>🔹 <b>Yến</b> <span style="color:var(--muted);">10%</span></div>
+            <div>🔹 <b>Bình</b> <span style="color:var(--muted);">70%</span></div>
+            <div>🔹 <b>Nghĩa</b> <span style="color:var(--muted);">80%</span></div>
+            <div>🔹 <b>+ 1 bạn mới</b> <span style="color:var(--muted);">từ T9</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     C · QUY TRÌNH
+══════════════════════════════════════ -->
+<div class="tab-panel" id="panel-c">
+  <div class="sec-label lbl-green">C · Quản lý quy trình</div>
+  <h2 class="ptitle">Vấn đề & Đề xuất thay đổi quy trình</h2>
+  <p class="pdesc">Nhận diện điểm nghẽn trong quy trình nội bộ, liên phòng và với khách — kèm đề xuất xử lý cụ thể cho từng đội.</p>
+
+  <h3 class="sh">C.1 · Quy trình nội bộ <span class="stag stag-new">3 vấn đề</span></h3>
+
+  <div class="ps-card">
+    <div class="ps-head">
+      <div class="ps-num red">1</div>
+      <h4>Bàn giao lead từ SE sang Triển khai <span class="chip se" style="font-size:10.5px;">SE → PM</span></h4>
+      <span class="ps-badge red">Ưu tiên cao</span>
+    </div>
+    <div class="ps-body">
+      <div class="ps-block prob">
+        <div class="blbl">⚠ Vấn đề</div>
+        <ul>
+          <li>Thông tin bàn giao không đồng nhất — mỗi SE giao theo cách riêng</li>
+          <li>PM & DE không biết kỳ vọng khách đã được tư vấn gì</li>
+          <li>Khách phải kể lại nhu cầu từ đầu → mất uy tín</li>
+        </ul>
+      </div>
+      <div class="ps-block sol">
+        <div class="blbl">✓ Đề xuất</div>
+        <ul>
+          <li><b>Handover Form chuẩn</b>: nhu cầu chính, cam kết đã offer, rủi ro</li>
+          <li><b>Buổi bàn giao 3 bên</b> (SE + PM + khách) trong tuần đầu dự án</li>
+          <li>SE chịu trách nhiệm bảo hành nếu thông tin bàn giao thiếu</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-card">
+    <div class="ps-head">
+      <div class="ps-num red">2</div>
+      <h4>Theo dõi tiến độ dự án chung <span class="chip impl" style="font-size:10.5px;">PM · DE · DA</span></h4>
+      <span class="ps-badge red">Ưu tiên cao</span>
+    </div>
+    <div class="ps-body">
+      <div class="ps-block prob">
+        <div class="blbl">⚠ Vấn đề</div>
+        <ul>
+          <li>Không có dashboard tổng hợp — mỗi người theo dõi riêng</li>
+          <li>Leader không biết bottleneck cho đến khi khách phàn nàn</li>
+          <li>Không track được SLA thực tế vs cam kết</li>
+        </ul>
+      </div>
+      <div class="ps-block sol">
+        <div class="blbl">✓ Đề xuất</div>
+        <ul>
+          <li><b>Dashboard dự án chung</b>: status, milestone, người phụ trách, ETA</li>
+          <li><b>Weekly sync 15 phút</b> — báo cáo đỏ/vàng/xanh theo dự án</li>
+          <li><b>Alert tự động</b> khi dự án trễ milestone ≥ 2 ngày</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-card">
+    <div class="ps-head">
+      <div class="ps-num amber">3</div>
+      <h4>Quản lý pipeline lead hiệu quả <span class="chip se" style="font-size:10.5px;">SE</span></h4>
+      <span class="ps-badge amber">Trung bình</span>
+    </div>
+    <div class="ps-body">
+      <div class="ps-block prob">
+        <div class="blbl">⚠ Vấn đề</div>
+        <ul>
+          <li>Lead không được follow-up đều đặn, deal nguội lạnh trong funnel</li>
+          <li>Không rõ deal nào ở giai đoạn nào, ai owner</li>
+          <li>Thiếu số liệu conversion rate để tối ưu</li>
+        </ul>
+      </div>
+      <div class="ps-block sol">
+        <div class="blbl">✓ Đề xuất</div>
+        <ul>
+          <li><b>CRM pipeline 5 stage</b>: Prospect → Qualified → Demo → Proposal → Closed</li>
+          <li><b>Follow-up SLA</b>: lead mới phản hồi trong 24h, stale ≥ 7 ngày → cảnh báo</li>
+          <li><b>Monthly pipeline review</b> với SE: cái nào push, cái nào drop</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <h3 class="sh">C.2 · Quy trình liên phòng ban</h3>
+
+  <div class="ps-card">
+    <div class="ps-head">
+      <div class="ps-num amber">4</div>
+      <h4>Phân vai trong dự án nhiều role — Presale <span class="chip se" style="font-size:10.5px;">BC · SE</span></h4>
+      <span class="ps-badge amber">Trung bình</span>
+    </div>
+    <div class="ps-body">
+      <div class="ps-block prob">
+        <div class="blbl">⚠ Vấn đề</div>
+        <ul>
+          <li>Chưa rõ trong buổi demo: BC làm gì, SE làm gì, ai chủ trì</li>
+          <li>Khách nghe nhiều người → thông điệp loãng, thiếu thống nhất</li>
+        </ul>
+      </div>
+      <div class="ps-block sol">
+        <div class="blbl">✓ Đề xuất</div>
+        <ul>
+          <li><b>BC</b>: phân tích nghiệp vụ, map nhu cầu → giải pháp</li>
+          <li><b>SE</b>: kỹ thuật, báo giá, timeline — chủ trì buổi demo</li>
+          <li><b>Briefing nội bộ 30 phút</b> trước mỗi buổi demo quan trọng</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ps-card">
+    <div class="ps-head">
+      <div class="ps-num amber">5</div>
+      <h4>Phân vai triển khai giữa các bộ phận — Data · CO · BC <span class="chip impl" style="font-size:10.5px;">Triển khai</span></h4>
+      <span class="ps-badge amber">Trung bình</span>
+    </div>
+    <div class="ps-body">
+      <div class="ps-block prob">
+        <div class="blbl">⚠ Vấn đề</div>
+        <ul>
+          <li>Khi sự cố xảy ra không rõ bên nào chịu trách nhiệm — Data, CO hay BC?</li>
+          <li>Data chờ CO, chờ khách → dồn ứ giờ chót</li>
+          <li>BC đã cam kết scope với khách nhưng Data không được inform đủ</li>
+        </ul>
+      </div>
+      <div class="ps-block sol">
+        <div class="blbl">✓ Đề xuất</div>
+        <ul>
+          <li><b>Data</b>: hạ tầng, pipeline, tích hợp, báo cáo, tư vấn luồng dữ liệu trong quy trình, golive kỹ thuật</li>
+          <li><b>CO</b>: theo dõi tiến độ số hóa, tư vấn các điểm vướng</li>
+          <li><b>BC</b>: nắm tiến độ tổng quan dự án, quản lý stakeholder</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <h3 class="sh">C.3 · Quy trình với khách hàng</h3>
+  <div class="ps-card">
+    <div class="ps-head">
+      <div class="ps-num red">6</div>
+      <h4>Đánh giá chất lượng sản phẩm trước khi giao tay khách <span class="chip impl" style="font-size:10.5px;">Triển khai</span></h4>
+      <span class="ps-badge red">Ưu tiên cao</span>
+    </div>
+    <div class="ps-body">
+      <div class="ps-block prob">
+        <div class="blbl">⚠ Vấn đề</div>
+        <ul>
+          <li>Chưa có "quality gate" nội bộ trước khi demo/bàn giao</li>
+          <li>Lỗi nhỏ bị khách phát hiện → mất uy tín, kéo dài nghiệm thu</li>
+          <li>Checklist không đồng nhất giữa các DA/DE</li>
+        </ul>
+      </div>
+      <div class="ps-block sol">
+        <div class="blbl">✓ Đề xuất</div>
+        <ul>
+          <li><b>Checklist QA nội bộ</b> bắt buộc trước mỗi demo & bàn giao</li>
+          <li><b>Peer review</b>: DA khác spot-check báo cáo trước khi khách thấy</li>
+          <li><b>"Ready to demo" = số khớp + không lỗi + có HDSD cơ bản</b></li>
+          <li><b>NPS survey</b> sau nghiệm thu → đưa vào KPI cá nhân</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     D · NHÂN SỰ
+══════════════════════════════════════ -->
+<div class="tab-panel" id="panel-d">
+  <div class="sec-label lbl-purple">D · Quản lý nhân sự</div>
+  <h2 class="ptitle">Phát triển nhân sự theo từng đội</h2>
+  <p class="pdesc">Điểm cần cải thiện và định hướng phát triển riêng cho đội SE và đội Triển khai (PM, DE, DA).</p>
+
+  <h3 class="sh">D.1 · Đội SE — Điểm cần phát triển <span class="chip se">Sales Engineer</span></h3>
+  <div class="g2">
+    <div class="card" style="border-left:4px solid var(--se);">
+      <div class="card-icon">🧠</div>
+      <div class="card-title">Kinh nghiệm triển khai thực tế</div>
+      <div class="card-body">SE tư vấn phải hiểu khách — đặt câu hỏi đúng, đọc được quy trình nghiệp vụ, không chỉ demo tool.
+        <div class="suggest">→ Rotation 1–2 tuần shadowing với senior DA; xây case study library từ 10 dự án thực tế.</div>
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--se);">
+      <div class="card-icon">🔢</div>
+      <div class="card-title">Tư duy logic & Số hoá quy trình</div>
+      <div class="card-body">SE cần decompose quy trình khách thành luồng dữ liệu — không để DE phải giải thích lại nhiều lần.
+        <div class="suggest">→ Workshop "Đọc quy trình nghiệp vụ" 4h + bài tập thực hành trên 3 ngành cụ thể.</div>
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--se);">
+      <div class="card-icon">💬</div>
+      <div class="card-title">Kỹ năng khai thác nhu cầu (Discovery)</div>
+      <div class="card-body">SE hay bị cuốn vào giải thích sản phẩm quá sớm, chưa hiểu đúng pain point của khách.
+        <div class="suggest">→ Áp dụng khung SPIN/BANT trong discovery; roleplay nội bộ hàng tháng.</div>
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--se);">
+      <div class="card-icon">📝</div>
+      <div class="card-title">Viết SOW & phạm vi dự án</div>
+      <div class="card-body">SOW thiếu chi tiết → scope creep và tranh chấp khi nghiệm thu gây ảnh hưởng đội triển khai.
+        <div class="suggest">→ Template SOW chuẩn 5 mục; review bởi leader trước khi gửi khách.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <h3 class="sh">D.2 · Đội Triển khai — Điểm cần phát triển <span class="chip impl">PM · DE · DA</span></h3>
+  <div class="g2">
+    <div class="card" style="border-left:4px solid var(--impl);">
+      <div class="card-icon">🏭</div>
+      <div class="card-title">DA: Hiểu phần mềm khách đang dùng</div>
+      <div class="card-body">DA cần biết cách phần mềm ERP/CRM/POS lưu trữ dữ liệu để xây pipeline đúng, giảm phụ thuộc vào DE.
+        <div class="suggest">→ Xây "Thư viện connector" nội bộ: schema + cách kết nối 10–15 phần mềm hay gặp.</div>
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--impl);">
+      <div class="card-icon">📊</div>
+      <div class="card-title">DA: Khả năng phân tích & chủ động process</div>
+      <div class="card-body">DA chủ động hơn trong đọc yêu cầu từ SE, map data model, không chỉ nhận việc thụ động từ DE.
+        <div class="suggest">→ DA tham gia từ kickoff; thực hành viết Data Requirement Document (DRD) cho mỗi dự án.</div>
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--impl);">
+      <div class="card-icon">🎨</div>
+      <div class="card-title">DA: Chất lượng thẩm mỹ báo cáo</div>
+      <div class="card-body">Báo cáo đúng số nhưng thiếu thẩm mỹ, khó đọc → khách không dùng, không thấy giá trị.
+        <div class="suggest">→ Design system báo cáo chuẩn team — màu sắc, font, layout; checklist thẩm mỹ 10 tiêu chí.</div>
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--impl);">
+      <div class="card-icon">⚠️</div>
+      <div class="card-title">DE: Phát hiện rủi ro dữ liệu sớm</div>
+      <div class="card-body">DE chưa có thói quen profile dữ liệu sớm — thường phát hiện vấn đề khi đã build xong.
+        <div class="suggest">→ Bắt buộc "Data Profiling Report" trong tuần đầu triển khai trước khi xây pipeline.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <h3 class="sh">D.3 · Định hướng phát triển nhân sự khi scale 12 tỷ (2027) <span class="stag stag-key">Gợi ý</span></h3>
+  <div class="hl orange">
+    <div class="hi">🎯</div>
+    <div>
+      <h4>Cần bổ sung gì để carry target 12 tỷ?</h4>
+      <ul>
+        <li><b>PM chuyên biệt</b>: khi dự án chạy song song ≥ 10, kiêm nhiệm PM + vai trò khác không đảm bảo chất lượng</li>
+        <li><b>DE lead → Solution Architect</b>: nâng vai trò để team đủ năng lực handle deal kỹ thuật phức tạp</li>
+        <li><b>Domain expert 1 ngành</b> (Sản xuất hoặc BĐS): tăng uy tín presale, rút ngắn thời gian tìm hiểu ngành</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     E · SẢN PHẨM
+══════════════════════════════════════ -->
+<div class="tab-panel" id="panel-e">
+  <div class="sec-label lbl-teal">E · Quản lý sản phẩm</div>
+  <h2 class="ptitle">Xây dựng & Truyền thông sản phẩm</h2>
+  <p class="pdesc">Đóng gói sản phẩm theo ngành, kế hoạch Webinar và lộ trình mở rộng vertical mới.</p>
+
+  <h3 class="sh">E.1 · 4 nhóm sản phẩm cần đóng gói <span class="stag stag-new">Đội Triển khai phụ trách</span></h3>
+  <div class="prod-grid">
+    <div class="prod-card">
+      <div class="prod-icon">🏭</div>
+      <div class="prod-title">1. Nhà kho dữ liệu / Pipeline</div>
+      <div class="prod-desc">Data warehouse + luồng nạp/biến đổi dữ liệu cấp cho DA làm báo cáo</div>
+      <div class="prod-act">Data model mẫu theo ngành (Cao su, BĐS, Sản xuất)</div>
+      <div class="prod-act">Demo dataset + báo giá template theo quy mô</div>
+      <div class="prod-act">SLA chuẩn: pipeline ≥ 95% thành công, alert ≤ 30 phút</div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-icon">🔗</div>
+      <div class="prod-title">2. Hệ thống tích hợp</div>
+      <div class="prod-desc">Đồng bộ dữ liệu 1/2 chiều giữa phần mềm, app, website, database</div>
+      <div class="prod-act">Library connector: Salesforce, Odoo, SAP, Shopify, Sapo</div>
+      <div class="prod-act">Playbook triển khai 10 ngày: khảo sát → mapping → test → golive</div>
+      <div class="prod-act">SLA: đồng bộ ≥ 99%, độ trễ ≤ 15 phút</div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-icon">🌐</div>
+      <div class="prod-title">3. Website tra cứu / Portal</div>
+      <div class="prod-desc">Website hiển thị dữ liệu, portal nội bộ/khách hàng theo vai trò</div>
+      <div class="prod-act">Template website theo ngành: ≥ 2 mẫu (BĐS, sản xuất)</div>
+      <div class="prod-act">Checklist UAT 20 điểm trước golive</div>
+      <div class="prod-act">SLA: uptime ≥ 99%, tải trang ≤ 3 giây</div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-icon">📊</div>
+      <div class="prod-title">4. Báo cáo quản trị</div>
+      <div class="prod-desc">Form nhập liệu + báo cáo trực quan (BI dashboard)</div>
+      <div class="prod-act">Bộ dashboard mẫu: ≥ 5 ngành, ≥ 3 KPI view mỗi ngành</div>
+      <div class="prod-act">Design system báo cáo chuẩn team</div>
+      <div class="prod-act">Demo video 3–5 phút/ngành dùng trong presale (SE dùng)</div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <hr class="div">
+  <h3 class="sh">E.1b · Yêu cầu output theo từng sản phẩm <span class="stag stag-new">Mới</span></h3>
+  <p style="font-size:13.5px;color:var(--muted);margin-bottom:16px;">Mỗi sản phẩm có định nghĩa <b>Đạt</b> đo được để đánh giá đạt/không đạt, không cảm tính.</p>
+  <div style="overflow-x:auto;">
+  <table class="t" style="font-size:12.5px;">
+    <thead><tr>
+      <th>Sản phẩm</th><th>Output bàn giao</th><th>Định nghĩa "Đạt" (đo được)</th><th>Cách kiểm chứng</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><b>1. Nhà kho dữ liệu / Pipeline</b></td>
+        <td>Schema/bảng trong kho + pipeline nạp dữ liệu</td>
+        <td>Schema khớp 100% data model DA duyệt; pipeline chạy đúng lịch, thành công ≥ 95%/tháng; cảnh báo lỗi ≤ 30 phút; số liệu khớp nguồn sai lệch 0%; không trùng khóa chính</td>
+        <td>Log chạy pipeline + bản đối soát số liệu + spec data model</td>
+      </tr>
+      <tr>
+        <td><b>2. Hệ thống tích hợp</b></td>
+        <td>Kết nối đồng bộ giữa 2 hệ thống (1 chiều/2 chiều)</td>
+        <td>Đồng bộ đúng chiều đã thống nhất; độ trễ ≤ ngưỡng cam kết; không mất/trùng bản ghi khi sync; có retry + log lỗi; có bảng mapping field giữa 2 hệ thống</td>
+        <td>Log đồng bộ + đối soát số bản ghi 2 đầu + tài liệu mapping</td>
+      </tr>
+      <tr>
+        <td><b>3. Website</b></td>
+        <td>Website chạy trên môi trường production</td>
+        <td>Uptime ≥ [X]%; dữ liệu hiển thị khớp nguồn & đúng thời điểm cập nhật; tương thích desktop + mobile; có phân quyền truy cập theo vai trò; có tài liệu hướng dẫn sử dụng</td>
+        <td>Báo cáo uptime + đối soát dữ liệu + checklist UAT</td>
+      </tr>
+      <tr>
+        <td><b>4. Báo cáo quản trị</b></td>
+        <td>Báo cáo quản trị tích hợp (Form nhập liệu + Visual BI)</td>
+        <td>Form: có validate đầu vào, lưu đúng & đủ về kho, không sai/trùng bản ghi. Visual: chỉ số đúng định nghĩa, cập nhật đúng lịch, đạt chuẩn thẩm mỹ báo cáo team (chart đúng context, format số, có HDSD); có phân quyền xem</td>
+        <td>Test case Form + đối chiếu chỉ số + checklist chất lượng báo cáo của team</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 class="sh">E.2 · Roadmap đóng gói theo ngành</h3>
+  <table class="t">
+    <tr><th>Ngành</th><th>Sản phẩm phù hợp</th><th>Tình trạng</th><th>Kế hoạch tiếp theo</th><th>Timeline</th></tr>
+    <tr><td><b>🌿 Cao su</b></td><td>Pipeline + Báo cáo quản trị</td><td><span class="pb lo">Đang làm</span></td><td>Webinar + case study → upsell khách cũ</td><td>Q3/2026</td></tr>
+    <tr><td><b>🏗️ Sản xuất</b></td><td>Pipeline + Tích hợp ERP + Báo cáo quản trị</td><td><span class="pb mid">Lên kế hoạch</span></td><td>Connector Odoo/SAP → Webinar Q1/2027</td><td>Q3–Q4/2026</td></tr>
+    <tr><td><b>🏠 Bất Động Sản</b></td><td>Pipeline + Báo cáo quản trị + Website portal</td><td><span class="pb mid">Lên kế hoạch</span></td><td>Demo kit BĐS → Webinar Q1/2027</td><td>Q4/2026</td></tr>
+    <tr><td><b>🛒 Kinh doanh thương mại</b></td><td>Tích hợp POS + Báo cáo quản trị</td><td><span class="pb hi">Chưa bắt đầu</span></td><td>Connector Shopify/Sapo → Package 50–100tr</td><td>Q2/2027</td></tr>
+    <tr><td><b>🛒 Bán lẻ / F&B</b></td><td>Tích hợp POS + Báo cáo quản trị</td><td><span class="pb hi">Chưa bắt đầu</span></td><td>Connector Shopify/Sapo → Package 50–100tr</td><td>Q2/2027</td></tr>
+  </table>
+
+  <h3 class="sh">E.3 · Kế hoạch Webinar truyền thông <span class="chip se">SE chủ trì</span></h3>
+  <div class="g3">
+    <div class="card" style="border-top:4px solid var(--green-l);">
+      <div class="card-icon">🌿</div>
+      <div class="card-title">Webinar Cao su · Q3/2026</div>
+      <div class="card-body"><b>Chủ đề:</b> "Số hóa quản lý vườn cây & thu mủ — từ Excel sang hệ thống tích hợp"<br><br>
+        <b>Mục tiêu:</b> 50–100 người, ≥ 10 lead hot, ≥ 2 deal mới</div>
+    </div>
+    <div class="card" style="border-top:4px solid var(--blue);">
+      <div class="card-icon">🏠</div>
+      <div class="card-title">Webinar BĐS · Q1/2027</div>
+      <div class="card-body"><b>Chủ đề:</b> "Dashboard quản lý dự án BĐS — giám đốc nhìn thấy gì trong 5 giây"<br><br>
+        <b>Mục tiêu:</b> 80–150 người, ≥ 15 lead, ≥ 3 deal</div>
+    </div>
+    <div class="card" style="border-top:4px solid var(--orange-l);">
+      <div class="card-icon">🏗️</div>
+      <div class="card-title">Webinar Sản xuất · Q1/2027</div>
+      <div class="card-body"><b>Chủ đề:</b> "Tích hợp ERP + BI — xóa sổ báo cáo thủ công trong nhà máy"<br><br>
+        <b>Mục tiêu:</b> 60–100 người, ≥ 12 lead, ≥ 2 deal</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     F · CHẤT LƯỢNG
+══════════════════════════════════════ -->
+<div class="tab-panel" id="panel-f">
+  <div class="sec-label lbl-red">F · Quản lý chất lượng sản phẩm</div>
+  <h2 class="ptitle">Kiểm soát chất lượng đầu ra</h2>
+  <p class="pdesc">Hệ thống QA đảm bảo sản phẩm đến tay khách đúng chuẩn — đo được, kiểm chứng được, trách nhiệm rõ ràng theo đội.</p>
+
+  <h3 class="sh">F.1 · Cấu trúc thư mục tài liệu QA & Vận hành</h3>
+  <div class="hl blue">
+    <div class="hi">📁</div>
+    <div>
+      <h4>Data Service — Tài liệu QA & Vận hành</h4>
+      <ul>
+        <li><b>01_QA_Checklist/</b> — Checklist theo từng loại sản phẩm (Pipeline · Tích hợp · Website · Báo cáo quản trị)</li>
+        <li><b>02_Bàn_giao/</b> — Template biên bản bàn giao, data dictionary, sơ đồ luồng dữ liệu</li>
+        <li><b>03_Vận_hành/</b> — SLA sheet, lịch cập nhật, changelog template</li>
+        <li><b>04_Báo_cáo_định_kỳ/</b> — Template báo cáo 2 tuần/lần & tháng (DE → External)</li>
+        <li><b>05_Case_study/</b> — Dự án đã xong + lessons learned (SE & Triển khai cùng đóng góp)</li>
+        <li><b>06_Design_system/</b> — Chuẩn màu sắc, font, layout báo cáo của team</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sh">F.2 · Quality Gate — 3 checkpoint trước khi giao tay khách <span class="chip impl">Đội Triển khai</span></h3>
+  <div class="g3">
+    <div class="card" style="border-top:4px solid var(--orange-l);">
+      <div class="card-icon">🔍</div>
+      <div class="card-title">Gate 1 · Dev Done</div>
+      <div class="card-body">DE/DA tự checklist trước khi bàn giao nội bộ:<br><br>
+        ✓ Số liệu khớp nguồn (đối soát)<br>
+        ✓ Pipeline chạy đúng lịch ≥ 3 lần<br>
+        ✓ Không lỗi màn hình, format số đúng<br>
+        ✓ Phân quyền đã cấu hình xong
+      </div>
+    </div>
+    <div class="card" style="border-top:4px solid var(--blue);">
+      <div class="card-icon">👥</div>
+      <div class="card-title">Gate 2 · Peer Review</div>
+      <div class="card-body">Leader hoặc DA khác spot-check:<br><br>
+        ✓ Checklist thẩm mỹ 10 tiêu chí<br>
+        ✓ Thử nghiệm với user persona khách<br>
+        ✓ HDSD đủ để người mới dùng được<br>
+        ✓ Ký duyệt "Ready to demo"
+      </div>
+    </div>
+    <div class="card" style="border-top:4px solid var(--green-l);">
+      <div class="card-icon">🤝</div>
+      <div class="card-title">Gate 3 · UAT & Nghiệm thu</div>
+      <div class="card-body">Cùng khách test trước bàn giao chính thức:<br><br>
+        ✓ Khách ký UAT checklist<br>
+        ✓ Buổi hướng dẫn sử dụng 1h<br>
+        ✓ Biên bản nghiệm thu đầy đủ<br>
+        ✓ NPS survey gửi sau 1 tuần
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sh">F.3 · KPI chất lượng theo dõi hàng tháng</h3>
+  <table class="t">
+    <tr><th>Chỉ số</th><th>Team phụ trách</th><th>Target</th><th>Hành động khi dưới target</th></tr>
+    <tr><td><b>Tỉ lệ pass Gate 1 lần đầu</b></td><td><span class="pb impl">Triển khai</span></td><td>≥ 80%</td><td>Review process, tăng cường training DE/DA</td></tr>
+    <tr><td><b>Tỉ lệ nghiệm thu đúng hạn</b></td><td><span class="pb impl">PM</span></td><td>≥ 85%</td><td>Rà timeline từng dự án, leo thang PM</td></tr>
+    <tr><td><b>NPS sau bàn giao</b></td><td><span class="pb se">SE</span> + <span class="pb impl">DA</span></td><td>≥ 7/10</td><td>1-on-1 với khách, root cause analysis</td></tr>
+    <tr><td><b>Số sự cố hệ thống/tháng</b></td><td><span class="pb impl">DE</span></td><td>≤ 2/dự án</td><td>Review SLA, thêm monitoring alert</td></tr>
+    <tr><td><b>Tỉ lệ deal đúng scope (không scope creep)</b></td><td><span class="pb se">SE</span></td><td>≥ 80%</td><td>Review lại template SOW, đào tạo discovery</td></tr>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════
+     G · RESOURCE
+══════════════════════════════════════ -->
+<div class="tab-panel" id="panel-g">
+  <div class="sec-label lbl-red">G · Resource Requirement</div>
+  <h2 class="ptitle">Đề xuất hỗ trợ từ Công ty</h2>
+  <p class="pdesc">Các hỗ trợ cần thiết để team Data Service vận hành hiệu quả — giai đoạn đến 12/2026.</p>
+
+  <div class="g2" style="margin-top:8px;">
+    <div class="hl blue" style="margin:0;">
+      <div class="hi">📦</div>
+      <div>
+        <h4>Đề xuất xin dữ liệu project từ Công ty</h4>
+        <p>Xin dữ liệu project từ nhóm dự án của Data trên <b>Base Project 2.0</b> để phục vụ theo dõi tiến độ và phân tích hiệu suất đội.</p>
+        <p style="margin-top:10px;font-size:13px;color:var(--muted);font-style:italic;">(Bổ sung thêm các yêu cầu cụ thể khi có)</p>
+      </div>
+    </div>
+    <div class="hl orange" style="margin:0;">
+      <div class="hi">⚖️</div>
+      <div>
+        <h4>Legal — Làm lại mẫu hợp đồng</h4>
+        <p>Phối hợp Legal chuẩn hoá lại mẫu hợp đồng, bổ sung các điều khoản bảo vệ quyền lợi team:</p>
+        <ul style="margin-top:10px;">
+          <li><b>Mặc nhiên nghiệm thu</b> — sau 5 ngày làm việc không phản hồi, Bên B có quyền xuất hóa đơn</li>
+          <li><b>Change Request có ký duyệt</b> — phát sinh ngoài scope phải có biên bản hai bên trước khi thực hiện</li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     KẾT LUẬN
+══════════════════════════════════════ -->
+<div class="tab-panel" id="panel-h">
+  <div class="sec-label lbl-blue">✦ Kết luận</div>
+  <h2 class="ptitle">Tóm tắt & định hướng hành động</h2>
+  <p class="pdesc">Chiến lược Data Service 2026–2029 được xây dựng trên nền tảng thực tế — từ dữ liệu doanh thu 6 tháng đầu năm, năng lực hiện tại của team, và cơ hội thị trường đã được kiểm chứng qua các dự án thực tế.</p>
+
+  <div class="g2" style="margin-bottom:24px;">
+    <div class="card" style="border-left:4px solid var(--blue);background:linear-gradient(135deg,#EFF6FF,#DBEAFE);">
+      <div class="card-icon">🎯</div>
+      <div class="card-title" style="color:var(--blue);">Mục tiêu rõ ràng</div>
+      <div class="card-body">8 tỷ năm 2026 → 12 tỷ năm 2027 → Tầm nhìn 1B USD năm 2029. Mỗi mốc gắn với năng lực cụ thể của team, không phải con số áp đặt từ trên xuống.</div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--teal);background:linear-gradient(135deg,#F0FDF4,#CCFBF1);">
+      <div class="card-icon">⚙️</div>
+      <div class="card-title" style="color:var(--teal);">Vận hành có hệ thống</div>
+      <div class="card-body">3 Quality Gate, QA checklist theo sản phẩm, cơ cấu team rõ vai trò — là nền tảng để scale mà không mất chất lượng khi tăng trưởng nhanh.</div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--orange);background:linear-gradient(135deg,#FFF7ED,#FFEDD5);">
+      <div class="card-icon">📦</div>
+      <div class="card-title" style="color:var(--orange);">Sản phẩm hoá theo ngành</div>
+      <div class="card-body">Đóng gói theo Cao su, Sản xuất, BĐS, Kinh doanh thương mại — rút ngắn sales cycle, tăng biên lợi nhuận, giảm phụ thuộc vào từng SE cá nhân.</div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--purple);background:linear-gradient(135deg,#FAF5FF,#EDE9FE);">
+      <div class="card-icon">👥</div>
+      <div class="card-title" style="color:var(--purple);">Con người là trọng tâm</div>
+      <div class="card-body">Career path rõ ràng, năng lực được đánh giá đúng, cơ hội thăng tiến minh bạch — giữ chân người giỏi và thu hút talent mới.</div>
+    </div>
+  </div>
+
+  <div class="hl blue" style="margin-bottom:20px;">
+    <div class="hi">🚀</div>
+    <div>
+      <h4>3 ưu tiên hành động ngay (Q3/2026)</h4>
+      <ul>
+        <li><b>Tập trung hoàn thành doanh thu</b> — phân bổ 8 tỷ xuống từng SE, đo hàng tuần, không đợi cuối quý.</li>
+        <li><b>Hoàn thiện quy trình</b> — chuẩn hoá từng bước triển khai, áp dụng QA checklist ngay cho dự án đang chạy trước khi nhân rộng toàn team.</li>
+        <li><b>Triển khai Webinar Cao su</b> — ≥ 10 lead hot, ≥ 2 deal đầu tiên từ vertical mới trong Q3.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hl orange">
+    <div class="hi">💬</div>
+    <div>
+      <h4>Điều kiện để chiến lược thành công</h4>
+      <ul>
+        <li><b>Sự ủng hộ từ leadership</b> về tuyển dụng, ngân sách công cụ, và không gian thử nghiệm vertical mới.</li>
+        <li><b>Cam kết nội bộ team</b> — mỗi thành viên hiểu rõ vai trò, số cần đạt, và lộ trình phát triển của bản thân.</li>
+        <li><b>Feedback loop nhanh</b> — review hàng tuần, điều chỉnh hàng tháng, không đợi cuối năm mới nhận ra lệch hướng.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:36px;padding:32px;background:linear-gradient(135deg,var(--navy),#1565C0);border-radius:16px;color:#fff;">
+    <div style="font-size:clamp(13px,1.5vw,16px);opacity:.7;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Data Service · Base Enterprise</div>
+    <div style="font-size:clamp(22px,3vw,36px);font-weight:900;line-height:1.2;margin-bottom:16px;">Từ 8 tỷ → 12 tỷ → 1B USD<br><span style="color:#90CAF9;">Không phải bước nhảy — mà là hành trình có hệ thống.</span></div>
+    <div style="font-size:clamp(12px,1.3vw,15px);opacity:.6;">Phiên bản 08/2026 · Tài liệu chiến lược nội bộ</div>
+  </div>
+</div>
+
+</div><!-- end panel-wrap -->
+
+<footer>
+  <b>Data Service · Base Enterprise</b> · Tài liệu chiến lược nội bộ · Phiên bản 08/2026<br>
+  Số liệu doanh thu từ dữ liệu thực tế 6T đầu năm đã rà soát · Các đề xuất mang tính định hướng, cần điều chỉnh theo thực tế
+</footer>
+
+<script>
+const tabs = document.querySelectorAll('.tab-btn');
+const panels = document.querySelectorAll('.tab-panel');
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo({ top: document.querySelector('.tabbar-wrap').offsetTop - 2, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
